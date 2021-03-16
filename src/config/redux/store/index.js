@@ -1,4 +1,5 @@
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
 import reducer from "../reducer";
 
-export let store = createStore(reducer);
+export let store = createStore(reducer, applyMiddleware(thunk));
