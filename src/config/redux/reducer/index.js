@@ -1,6 +1,7 @@
 const initialState = {
     popup: false,
     isLogin: false,
+    user: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,10 @@ const reducer = (state = initialState, action) => {
             ...state,
             isLogin: action.value,
         };
+    }
+
+    if (action.type === "CHANGE_USERNAME") {
+        return { ...state, user: action.value };
     }
 
     return state;
