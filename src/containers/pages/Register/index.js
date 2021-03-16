@@ -1,6 +1,8 @@
 import React from "react";
 import "./Register.scss";
-import firebase from "../../../config/firebase/index";
+import Button from "../../../components/atoms/Button";
+import { connect } from "react-redux";
+import { registerUserIntoFirebase } from "../../../config/redux/action";
 
 class Register extends React.Component {
     state = {
@@ -16,21 +18,7 @@ class Register extends React.Component {
 
     handleRegisterSubmit = () => {
         const { email, password } = this.state;
-
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then(userCredential => {
-                // Signed in
-                var user = userCredential.user;
-                console.log("user: ", user);
-            })
-            .catch(error => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("errorCode:", errorCode);
-                console.log("errorMessage:", errorMessage);
-            });
+        this.props.registerUser({ email, password });
     };
 
     render() {
@@ -52,13 +40,23 @@ class Register extends React.Component {
                         placeholder="Password"
                         onChange={this.handleChangeText}
                     ></input>
-                    <button className="btn" onClick={this.handleRegisterSubmit}>
-                        Register
-                    </button>
+
+                    <Button
+                        onClick={this.handleRegisterSubmit}
+                        title="Register"
+                        loading={this.props.isLoading}
+                    />
                 </div>
             </div>
         );
     }
 }
 
-export default Register;
+const reduxState = state => {
+    return { isLoading: state.isLoadingWillBeTrigger };
+};
+
+const reduxDispatch = dispatch => {
+    return { registerUser: data => dispatch(registerUserIntoFirebase(data)) };
+};
+export default connect(reduxState, reduxDispatch)(Register);
