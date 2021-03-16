@@ -1,26 +1,25 @@
 const initialState = {
     popup: false,
     isLogin: false,
+    isLoadingWillBeTrigger: false,
     user: "",
 };
 
 const reducer = (state = initialState, action) => {
     if (action.type === "CHANGE_POPUP") {
-        return {
-            ...state,
-            popup: action.value,
-        };
+        return { ...state, popup: action.value };
     }
 
     if (action.type === "CHANGE_ISLOGIN") {
-        return {
-            ...state,
-            isLogin: action.value,
-        };
+        return { ...state, isLogin: action.value };
     }
 
     if (action.type === "CHANGE_USERNAME") {
         return { ...state, user: action.value };
+    }
+
+    if (action.type === "CHANGE_LOADING") {
+        return { ...state, isLoadingWillBeTrigger: action.value };
     }
 
     return state;
