@@ -6,7 +6,7 @@ import Register from "./../Register/index";
 import { Provider } from "react-redux";
 import { store } from "../../../config/redux";
 
-store.subscribe(() => console.log(store.getState()));
+// store.subscribe(() => console.log(store.getState()));
 
 function App() {
     return (
