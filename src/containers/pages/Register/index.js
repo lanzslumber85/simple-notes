@@ -16,9 +16,14 @@ class Register extends React.Component {
         });
     };
 
-    handleRegisterSubmit = () => {
+    handleRegisterSubmit = async () => {
         const { email, password } = this.state;
-        this.props.registerUser({ email, password });
+        const res = await this.props
+            .registerUser({ email, password })
+            .catch(err => err);
+        if (res) {
+            this.setState({ email: "", password: "" });
+        }
     };
 
     render() {
@@ -30,6 +35,7 @@ class Register extends React.Component {
                         className="input"
                         id="email"
                         type="email"
+                        value={this.state.email}
                         placeholder="Email"
                         onChange={this.handleChangeText}
                     ></input>
@@ -37,6 +43,7 @@ class Register extends React.Component {
                         className="input"
                         id="password"
                         type="password"
+                        value={this.state.password}
                         placeholder="Password"
                         onChange={this.handleChangeText}
                     ></input>
