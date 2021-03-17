@@ -77,7 +77,14 @@ export const getDataFromAPI = userID => dispatch => {
             const data = snapshot.val();
             console.log("get Data:", data);
 
-            const dataInArrayFormat = Object.keys(data);
+            const dataInArrayFormat = [];
+            Object.keys(data).map(key => {
+                dataInArrayFormat.push({
+                    id: key,
+                    data: data[key],
+                });
+            });
+
             dispatch({ type: "SET_NOTES", value: dataInArrayFormat });
             resolve(dataInArrayFormat);
         });
