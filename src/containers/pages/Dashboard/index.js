@@ -40,6 +40,9 @@ class Dashboard extends React.Component {
 
     render() {
         const { title, content, date } = this.state;
+        const { notes } = this.props;
+
+        console.log("notes: ", notes);
         return (
             <div className="container">
                 <div className="input-form">
@@ -71,7 +74,7 @@ class Dashboard extends React.Component {
 }
 
 const reduxState = state => {
-    return { userData: state.user };
+    return { userData: state.user, notes: state.notes };
 };
 
 const reduxDispatch = dispatch => {
