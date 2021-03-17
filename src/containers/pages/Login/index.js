@@ -23,6 +23,7 @@ class Login extends React.Component {
             .catch(err => err);
         if (res) {
             console.log("Login Success...", res);
+            localStorage.setItem("userData", JSON.stringify(res));
             this.setState({ email: "", password: "" });
             history.push("/");
         } else {
