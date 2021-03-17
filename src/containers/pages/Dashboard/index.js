@@ -18,12 +18,13 @@ class Dashboard extends React.Component {
     handleSaveNotes = () => {
         const { title, content } = this.state;
         const { saveNotes } = this.props;
+        const userData = JSON.parse(localStorage.getItem("userData"));
 
         const data = {
             title: title,
             content: content,
             date: new Date().getTime(),
-            userID: this.props.userData.uid,
+            userID: userData.uid,
         };
 
         saveNotes(data);
