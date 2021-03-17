@@ -72,9 +72,14 @@ export const addDataToAPI = data => dispatch => {
 
 export const getDataFromAPI = userID => dispatch => {
     const urlNotes = database.ref("notes/" + userID);
-    urlNotes.on("value", snapshot => {
-        const data = snapshot.val();
-        // updateStarCount(postElement, data);
-        console.log("get Data:", data);
+    return new Promise((resolve, reject) => {
+        urlNotes.on("value", snapshot => {
+            const data = snapshot.val();
+            console.log("get Data:", data);
+
+            const dataInArrayFormat = Object.keys(data);
+            dispatch({ type: "SET_NOTES", value: dataInArrayFormat });
+            resolve(dataInArrayFormat);
+        });
     });
 };
